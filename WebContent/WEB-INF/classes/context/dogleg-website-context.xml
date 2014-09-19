@@ -3,6 +3,17 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 
+	<bean id="urlMapping"
+		class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="mappings">
+			<props>
+				<prop key="Test.do">GameController</prop>
+			</props>
+		</property>
+	</bean>
 
+	<bean id="GameController"
+		class="com.sun00j.dogleg.controller.GameController">
+	</bean>
 
 </beans>
