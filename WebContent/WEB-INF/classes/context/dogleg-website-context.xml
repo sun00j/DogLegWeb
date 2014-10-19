@@ -8,6 +8,7 @@
 		<property name="mappings">
 			<props>
 				<prop key="Test.do">GameController</prop>
+				<prop key="Login.do">GameController</prop>
 			</props>
 		</property>
 	</bean>
