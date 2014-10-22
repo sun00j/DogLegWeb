@@ -11,8 +11,7 @@ public class GameUtil {
 		int a=0;
 		for(int i=0;i<162;i++) {
 			a=rand.nextInt(162);
-			cards[i]=a+1;
-			cards[a]=i+1;
+			swap(i,a);
 		}
 		return cards;
 	}
@@ -20,5 +19,10 @@ public class GameUtil {
 		for(int i=0;i<162;i++) {
 			cards[i]=i+1;
 		}
+	}
+	private void swap(int a,int b) {
+		int c=cards[a];
+		cards[a]=cards[b];
+		cards[b]=c;
 	}
 }
