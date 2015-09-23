@@ -4,6 +4,7 @@ public class Person {
 	private int id;
 	private String name;
 	private int score;
+	private int[] cards;
 	public int getId() {
 		return id;
 	}
@@ -21,5 +22,11 @@ public class Person {
 	}
 	public void setScore(int score) {
 		this.score = score;
+	}
+	public int[] getCards() {
+		return cards;
+	}
+	public void setCards(int[] cards) {
+		this.cards = cards;
 	}
 }
