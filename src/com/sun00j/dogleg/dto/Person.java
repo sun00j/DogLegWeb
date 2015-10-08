@@ -5,6 +5,8 @@ public class Person {
 	private String name;
 	private int score;
 	private int[] cards;
+	public boolean isDizhu = false;
+	public boolean isGoutui = false;
 	public int getId() {
 		return id;
 	}

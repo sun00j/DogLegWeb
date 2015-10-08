@@ -9,14 +9,6 @@
 	<classpathentry exported="true" kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry exported="true" kind="lib" path="F:/workspace/DogLegWeb/lib/commons-dbcp.jar"/>
-	<classpathentry exported="true" kind="lib" path="F:/workspace/DogLegWeb/lib/commons-logging.jar"/>
-	<classpathentry exported="true" kind="lib" path="F:/workspace/DogLegWeb/lib/commons-pool.jar"/>
-	<classpathentry exported="true" kind="lib" path="F:/workspace/DogLegWeb/lib/httpclient.jar"/>
-	<classpathentry exported="true" kind="lib" path="F:/workspace/DogLegWeb/lib/jackson-all.jar"/>
-	<classpathentry exported="true" kind="lib" path="F:/workspace/DogLegWeb/lib/log4j.jar"/>
-	<classpathentry exported="true" kind="lib" path="F:/workspace/DogLegWeb/lib/servlet-api.jar"/>
-	<classpathentry exported="true" kind="lib" path="F:/workspace/DogLegWeb/lib/spring.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/json-lib.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/commons-beanutils.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/commons-collections.jar"/>
@@ -24,5 +16,19 @@
 	<classpathentry exported="true" kind="lib" path="lib/commons-lang.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/ezmorph.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/httpclient.jar"/>
+	<classpathentry kind="lib" path="/mnt/workspace/DogLegWeb/lib/commons-beanutils.jar"/>
+	<classpathentry kind="lib" path="/mnt/workspace/DogLegWeb/lib/commons-collections.jar"/>
+	<classpathentry kind="lib" path="/mnt/workspace/DogLegWeb/lib/commons-dbcp.jar"/>
+	<classpathentry kind="lib" path="/mnt/workspace/DogLegWeb/lib/commons-httpclient.jar"/>
+	<classpathentry kind="lib" path="/mnt/workspace/DogLegWeb/lib/commons-lang.jar"/>
+	<classpathentry kind="lib" path="/mnt/workspace/DogLegWeb/lib/commons-logging.jar"/>
+	<classpathentry kind="lib" path="/mnt/workspace/DogLegWeb/lib/commons-pool.jar"/>
+	<classpathentry kind="lib" path="/mnt/workspace/DogLegWeb/lib/ezmorph.jar"/>
+	<classpathentry kind="lib" path="/mnt/workspace/DogLegWeb/lib/httpclient.jar"/>
+	<classpathentry kind="lib" path="/mnt/workspace/DogLegWeb/lib/jackson-all.jar"/>
+	<classpathentry kind="lib" path="/mnt/workspace/DogLegWeb/lib/json-lib.jar"/>
+	<classpathentry kind="lib" path="/mnt/workspace/DogLegWeb/lib/log4j.jar"/>
+	<classpathentry kind="lib" path="/mnt/workspace/DogLegWeb/lib/servlet-api.jar"/>
+	<classpathentry kind="lib" path="/mnt/workspace/DogLegWeb/lib/spring.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
