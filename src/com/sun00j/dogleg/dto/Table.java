@@ -1,5 +1,11 @@
 package com.sun00j.dogleg.dto;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Arrays;
 import java.util.Random;
 
@@ -7,13 +13,22 @@ import org.apache.commons.lang.ArrayUtils;
 
 import com.sun00j.dogleg.utils.GameUtil;
 
-public class Table {
+public class Table implements Runnable{
 
 	GameUtil mGameUtil = new GameUtil();
 	Person []persons;
 	int remainCard[];
+	List<Socket> socketList;
+	ServerSocket mServerSocket;
 	public Table() {
 		persons = new Person[5];
+		socketList = new ArrayList<Socket>();
+		try {
+			mServerSocket = new ServerSocket(4321);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		// TODO Auto-generated constructor stub
 	}
 	public void start() {
@@ -56,6 +71,26 @@ public class Table {
 		if(persons[index].isDizhu&&persons[index].isGoutui) {
 			
 		}
+	}
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		int socketCount = 0;
+		while (socketCount < 5) {
+				try {
+					Socket mSocket = mServerSocket.accept();
+					persons[socketCount].mSocket = mSocket;
+					persons[socketCount].table = this;
+					socketList.add(mSocket);
+					new Thread(persons[socketCount]).start();
+					socketCount++;
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			
+		}
+		
 	}
 
 }
