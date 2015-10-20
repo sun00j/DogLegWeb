@@ -3,6 +3,7 @@ package com.sun00j.dogleg.dto;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.Socket;
 
 public class Person implements Runnable{
@@ -17,6 +18,7 @@ public class Person implements Runnable{
 	Socket mSocket;
 	Table table;
 	BufferedReader br;
+	OutputStream os ;
 	public int getId() {
 		return id;
 	}
@@ -40,6 +42,14 @@ public class Person implements Runnable{
 	}
 	public void setCards(int[] cards) {
 		this.cards = cards;
+		if(os!=null) {
+			try {
+				os.write(cards.toString().getBytes());
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 	public String getAddress() {
 		return address;
@@ -52,9 +62,25 @@ public class Person implements Runnable{
 		// TODO Auto-generated method stub
 		try {
 			br = new BufferedReader(new InputStreamReader(mSocket.getInputStream()));
+			os = mSocket.getOutputStream();
 			String clientString = null;
 			while ((clientString = readFormClient()) != null) {
-				
+				//"index#1#id#1"
+				if(clientString.contains("index")) {
+					int index = Integer.parseInt(clientString.split("#")[1]);
+					int id = Integer.parseInt(clientString.split("#")[3]);
+					this.id = id;
+					table.persons[index] = this;
+					table.broadcastMsg(clientString);
+				} else if(clientString.contains("ready")) {//id#1#ready
+					this.isReady = true;
+					table.broadcastMsg(clientString);
+					if(table.isAllReady()) {
+						table.start();
+					}
+				}else if(table.isAllReady()) {
+					table.broadcastMsg(clientString);
+				}
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -67,8 +93,19 @@ public class Person implements Runnable{
 			return br.readLine();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
+			this.isReady = false;
 			table.socketList.remove(mSocket);
 		}
 		return null;
+	}
+	public void sendMsg(String msg){
+		if(os!=null) {
+			try {
+				os.write(msg.getBytes());
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 }

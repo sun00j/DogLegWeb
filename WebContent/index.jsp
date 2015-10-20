@@ -7,6 +7,6 @@
 <title>DogLegWeb</title>
 </head>
 <body>
-<a href="Login.do">Test</a>
+<a href="addUser.do">Test</a>
 </body>
 </html>

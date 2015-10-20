@@ -30,5 +30,6 @@
 	<classpathentry kind="lib" path="/mnt/workspace/DogLegWeb/lib/log4j.jar"/>
 	<classpathentry kind="lib" path="/mnt/workspace/DogLegWeb/lib/servlet-api.jar"/>
 	<classpathentry kind="lib" path="/mnt/workspace/DogLegWeb/lib/spring.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/mysql-connector-java.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

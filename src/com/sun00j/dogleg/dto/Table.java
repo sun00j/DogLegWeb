@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.Arrays;
 import java.util.Random;
 
+import javax.net.ssl.SSLException;
+
 import org.apache.commons.lang.ArrayUtils;
 
 import com.sun00j.dogleg.utils.GameUtil;
@@ -39,16 +41,25 @@ public class Table implements Runnable{
 			persons[i].setCards(temCards);
 		}
 		remainCard = Arrays.copyOfRange(cards, 155, 161);
+		broadcastMsg(remainCard.toString());
+		try {
+			Thread.sleep(2000);
+			chooseBoss();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
-	public void addPerson(int index, int id) {
-		persons[index].setId(id);
-	}
+//	public void addPerson(int index, int id) {
+//		persons[index].setId(id);
+//	}
 	public void chooseBoss() {
 		Random random = new Random();
 		int index = random.nextInt(5);
 		persons[index].setCards(ArrayUtils.addAll(persons[index].getCards(), remainCard));
 		persons[index].isDizhu = true;
+		broadcastMsg("chooseboss#"+index);
 	}
 	public void setGoutui() {
 		int index = -1;
@@ -79,9 +90,13 @@ public class Table implements Runnable{
 		while (socketCount < 5) {
 				try {
 					Socket mSocket = mServerSocket.accept();
-					persons[socketCount].mSocket = mSocket;
-					persons[socketCount].table = this;
+					Person mPerson = new Person();
+					mPerson.mSocket = mSocket;
+					mPerson.table = this;
 					socketList.add(mSocket);
+					if(socketList.size()==5){
+						start();
+					}
 					new Thread(persons[socketCount]).start();
 					socketCount++;
 				} catch (IOException e) {
@@ -91,6 +106,20 @@ public class Table implements Runnable{
 			
 		}
 		
+	}
+	public boolean isAllReady() {
+		// TODO Auto-generated method stub
+		if (persons[0].isReady && persons[1].isReady && persons[2].isReady && persons[3].isReady
+				&& persons[4].isReady) {
+			return true;
+		}
+		return false;
+	}
+	public void broadcastMsg(String msg) {
+		// TODO Auto-generated method stub
+		for(int i=0;i<5;i++){
+			persons[i].sendMsg(msg);
+		}
 	}
 
 }

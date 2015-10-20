@@ -9,12 +9,17 @@
 			<props>
 				<prop key="Test.do">GameController</prop>
 				<prop key="Login.do">GameController</prop>
+				<prop key="addUser.do">UserController</prop>
 			</props>
 		</property>
 	</bean>
 
-	<bean id="GameController"
-		class="com.sun00j.dogleg.controller.GameController">
+	<bean id="GameController" class="com.sun00j.dogleg.controller.GameController">
+	</bean>
+	<bean id="UserController" class="com.sun00j.dogleg.controller.UserController">
+		<property name="jdbcTemplate">
+			<ref bean="jdbcTemplate" />
+		</property>
 	</bean>
 
 </beans>
