@@ -12,11 +12,13 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.multiaction.MultiActionController;
 
 import com.sun00j.dogleg.dto.Person;
+import com.sun00j.dogleg.dto.Table;
 import com.sun00j.dogleg.utils.GameUtil;
 
 public class GameController extends MultiActionController{
 	
 	public ModelAndView Test(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		new Thread(new Table()).start();;
 		return new ModelAndView("Test.jsp");
 	}
 

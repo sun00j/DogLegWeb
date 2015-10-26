@@ -18,15 +18,15 @@ import com.sun00j.dogleg.utils.GameUtil;
 public class Table implements Runnable{
 
 	GameUtil mGameUtil = new GameUtil();
-	Person []persons;
+	List<Person> persons;
 	int remainCard[];
 	List<Socket> socketList;
 	ServerSocket mServerSocket;
 	public Table() {
-		persons = new Person[5];
+		//persons = new Person[5];
 		socketList = new ArrayList<Socket>();
 		try {
-			mServerSocket = new ServerSocket(4321);
+			mServerSocket = new ServerSocket(6543);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -38,7 +38,7 @@ public class Table implements Runnable{
 		for(int i=0;i<5;i++) {
 			int temCards[] = Arrays.copyOfRange(cards, i*31,(i+1)*31-1);
 			Arrays.sort(temCards);
-			persons[i].setCards(temCards);
+			persons.get(i).setCards(temCards);
 		}
 		remainCard = Arrays.copyOfRange(cards, 155, 161);
 		broadcastMsg(remainCard.toString());
@@ -57,29 +57,29 @@ public class Table implements Runnable{
 	public void chooseBoss() {
 		Random random = new Random();
 		int index = random.nextInt(5);
-		persons[index].setCards(ArrayUtils.addAll(persons[index].getCards(), remainCard));
-		persons[index].isDizhu = true;
+		persons.get(index).setCards(ArrayUtils.addAll(persons.get(index).getCards(), remainCard));
+		persons.get(index).isDizhu = true;
 		broadcastMsg("chooseboss#"+index);
 	}
 	public void setGoutui() {
 		int index = -1;
-		if(Arrays.asList(persons[0]).contains(65)){
-			persons[0].isGoutui=true;
+		if(Arrays.asList(persons.get(0).getCards()).contains(65)){
+			persons.get(0).isGoutui=true;
 			index = 0;
-		} else if(Arrays.asList(persons[1]).contains(65)) {
-			persons[1].isGoutui = true;
+		} else if(Arrays.asList(persons.get(1).getCards()).contains(65)) {
+			persons.get(1).isGoutui = true;
 			index = 1;
-		} else if(Arrays.asList(persons[2]).contains(65)) {
-			persons[2].isGoutui = true;
+		} else if(Arrays.asList(persons.get(2).getCards()).contains(65)) {
+			persons.get(2).isGoutui = true;
 			index = 2;
-		} else if(Arrays.asList(persons[3]).contains(65)) {
-			persons[3].isGoutui = true;
+		} else if(Arrays.asList(persons.get(3).getCards()).contains(65)) {
+			persons.get(3).isGoutui = true;
 			index = 3;
-		} else if(Arrays.asList(persons[4]).contains(65)) {
-			persons[4].isGoutui = true;
+		} else if(Arrays.asList(persons.get(4).getCards()).contains(65)) {
+			persons.get(4).isGoutui = true;
 			index = 4;
 		}
-		if(persons[index].isDizhu&&persons[index].isGoutui) {
+		if(persons.get(index).isDizhu&&persons.get(index).isGoutui) {
 			
 		}
 	}
@@ -89,6 +89,7 @@ public class Table implements Runnable{
 		int socketCount = 0;
 		while (socketCount < 5) {
 				try {
+					System.out.println("Table start");
 					Socket mSocket = mServerSocket.accept();
 					Person mPerson = new Person();
 					mPerson.mSocket = mSocket;
@@ -97,7 +98,8 @@ public class Table implements Runnable{
 					if(socketList.size()==5){
 						start();
 					}
-					new Thread(persons[socketCount]).start();
+					persons.add(mPerson);
+					new Thread(mPerson).start();
 					socketCount++;
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
@@ -109,16 +111,17 @@ public class Table implements Runnable{
 	}
 	public boolean isAllReady() {
 		// TODO Auto-generated method stub
-		if (persons[0].isReady && persons[1].isReady && persons[2].isReady && persons[3].isReady
-				&& persons[4].isReady) {
+		if ((persons.size() == 5)&&persons.get(0).isReady && persons.get(1).isReady && persons.get(2).isReady && persons.get(3).isReady
+				&& persons.get(4).isReady) {
 			return true;
 		}
 		return false;
 	}
 	public void broadcastMsg(String msg) {
 		// TODO Auto-generated method stub
-		for(int i=0;i<5;i++){
-			persons[i].sendMsg(msg);
+		for(int i=0;i<socketList.size();i++){
+			persons.get(i).sendMsg(msg);
+			System.out.println(msg);
 		}
 	}
 
